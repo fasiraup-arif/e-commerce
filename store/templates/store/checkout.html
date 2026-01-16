@@ -1,0 +1,19 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<h2>Checkout</h2>
+
+<div class="card">
+  <div class="card-body">
+    <p><strong>Total Amount:</strong> ${{ total }}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-primary w-100">
+        Place Order
+      </button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<h2>My Profile</h2>
+
+<div class="card">
+  <div class="card-body">
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Email:</strong> {{ request.user.email }}</p>
+
+    <a href="{% url 'orders' %}" class="btn btn-outline-primary">
+      View Orders
+    </a>
+  </div>
+</div>
+
+{% endblock %}

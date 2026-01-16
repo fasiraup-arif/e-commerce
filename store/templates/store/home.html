@@ -1,0 +1,75 @@
+{% extends 'store/base.html' %}
+
+{% block content %}
+
+<!-- ================= Carousel Section ================= -->
+<div id="featuredCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    {% for product in products %}
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <img src="{{ product.image }}" class="d-block w-100" alt="{{ product.title }}" style="height:400px; object-fit:cover;">
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+          <h5>{{ product.title }}</h5>
+          {% if product.discount_price %}
+            <p><del>${{ product.price }}</del> ${{ product.discount_price }}</p>
+          {% else %}
+            <p>${{ product.price }}</p>
+          {% endif %}
+          <a href="{% url 'product_detail' product.id %}" class="btn btn-warning btn-sm">View Product</a>
+        </div>
+      </div>
+    {% empty %}
+      <div class="carousel-item active">
+        <img src="https://via.placeholder.com/1200x400" class="d-block w-100" alt="No products available">
+        <div class="carousel-caption d-none d-md-block bg-dark bg-opacity-50 rounded p-2">
+          <h5>No products available</h5>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Carousel Controls -->
+  <button class="carousel-control-prev" type="button" data-bs-target="#featuredCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#featuredCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- ================= Featured Products Grid ================= -->
+<h3 class="mb-3">Featured Products</h3>
+<div class="row">
+  {% for product in products %}
+    <div class="col-md-3 mb-4">
+      <div class="card h-100 shadow-sm position-relative">
+        <img src="{{ product.image }}" class="card-img-top" alt="{{ product.title }}" style="height:200px; object-fit:cover;">
+
+        {% if product.discount_price %}
+          <span class="badge bg-danger position-absolute top-0 start-0 m-2">
+            {{ product.discount_percent }}% OFF
+          </span>
+        {% endif %}
+
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title">{{ product.title }}</h5>
+          {% if product.discount_price %}
+            <p class="card-text">
+              <del>${{ product.price }}</del> ${{ product.discount_price }}
+            </p>
+          {% else %}
+            <p class="card-text">${{ product.price }}</p>
+          {% endif %}
+          <a href="{% url 'product_detail' product.id %}" class="btn btn-sm btn-success mt-auto">View Details</a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No featured products at the moment.</p>
+  {% endfor %}
+</div>
+
+{% endblock %}
+

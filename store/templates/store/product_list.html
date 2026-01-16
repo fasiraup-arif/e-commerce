@@ -1,0 +1,23 @@
+{% extends 'store/base.html' %}
+{% block content %}
+
+<form method="get" class="mb-3">
+  <input type="text" name="q" class="form-control" placeholder="Search products">
+</form>
+
+<div class="row">
+  {% for product in products %}
+  <div class="col-md-4">
+    <div class="card mb-3">
+      <img src="{{ product.image }}" class="card-img-top">
+      <div class="card-body">
+        <h5>{{ product.title }}</h5>
+        <p>${{ product.price }}</p>
+        <a href="/product/{{ product.id }}/" class="btn btn-success">Details</a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}
